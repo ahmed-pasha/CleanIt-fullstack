@@ -12,6 +12,7 @@ const Navbar = () => {
   const [token, setToken] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const { user } = useAuth();
+  
 
   useEffect(() => {
     const userdata = JSON.parse(localStorage.getItem("user"));
