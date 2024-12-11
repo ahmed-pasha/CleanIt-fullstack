@@ -1,80 +1,81 @@
+// Navbar component (Navbar.js)
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { HiMenu, HiX } from "react-icons/hi";
+import { FaUserCircle } from "react-icons/fa"; // User icon
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [role, setRole] = useState("");
-  // const [user, setUser] = useState("");
   const [token, setToken] = useState("");
-  const { user } = useAuth(); 
-  
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { user } = useAuth();
+
   useEffect(() => {
     const userdata = JSON.parse(localStorage.getItem("user"));
     setToken(localStorage.getItem("token"));
-    // setUser(userdata?.name);
     setRole(userdata?.role);
-    console.log(user);
-  }, [localStorage]);
-  
+  }, []);
 
-  // If the current path is "/login", return an empty fragment
   if (location.pathname === "/login") {
     return <></>;
   }
 
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
+  };
+
   return (
-    <nav className="bg-blue-600 p-4">
-      <div className="flex justify-between items-center">
-        {/* Branding */}
-        <div className="text-white text-xl font-bold">EcoMate</div>
+    <div className="flex flex-col w-64 min-h-screen bg-blue-600 p-4">
+      {/* Branding */}
+      <div className="text-white text-xl font-bold mb-8">EcoMate</div>
 
-        {/* Navigation Links */}
-        <div className="space-x-4 flex">
-          <Link to="/" className="text-white">
-            Home
-          </Link>
-          <Link to="/gigs" className="text-white">
-            Gigs
-          </Link>
-          {/* <Link to="/groups" className="text-white">
-            Groups
-          </Link> */}
-          <Link to="/payments" className="text-white">
-            Payments
-          </Link>
+      {/* Menu Links */}
+      <div className="flex flex-col gap-4">
+        <Link to="/" className="text-white hover:text-yellow-400 transition-colors">
+          Home
+        </Link>
+        <Link to="/gigs" className="text-white hover:text-yellow-400 transition-colors">
+          Gigs
+        </Link>
+        <Link to="/payments" className="text-white hover:text-yellow-400 transition-colors">
+          Payments
+        </Link>
 
-          {token ? (
-            <Link
-              to={"/login"}
-              onClick={() => {
-                localStorage.clear();
-                navigate("/login");
-              }}
-              className="text-white"
-            >
-              Logout
-            </Link>
-          ) : (
-            <Link to="/login" className="text-white">
-              Login
-            </Link>
-          )}
+        {/* Logout or Login */}
+        {token ? (
+          <Link
+            to="/login"
+            onClick={() => {
+              localStorage.clear();
+              navigate("/login");
+            }}
+            className="text-white hover:text-yellow-400 transition-colors"
+          >
+            Logout
+          </Link>
+        ) : (
+          <Link to="/login" className="text-white hover:text-yellow-400 transition-colors">
+            Login
+          </Link>
+        )}
 
-          {/* Role Display */}
-          {user && (
-            <Link
-              to="/dashboard"
-              className="text-white flex-col gap-1 justify-center items-center"
-            >
-              <div className="text-lg font-semibold capitalize">{user.name}</div>
-              <div className="font-normal capitalize">( {user.role} )</div>
-            </Link>
-          )}
-        </div>
+        {/* User Profile */}
+        {user && (
+          <Link to={'/dashboard'} className="text-white mt-6">
+            <div className="flex items-center gap-4">
+              <FaUserCircle size={40} className="text-white" />
+              <div className="flex flex-col text-sm">
+                <div className="font-semibold">{user.name}</div>
+                <div className="text-gray-300">{user.role}</div>
+              </div>
+            </div>
+          </Link>
+        )}
       </div>
-    </nav>
+    </div>
   );
 };
 

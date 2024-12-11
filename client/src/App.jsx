@@ -20,10 +20,11 @@ import AuthWrapper from "./components/AuthWrapper";
 import Auth from "./pages/Auth/Auth";
 import EcoHeroGigs from "./pages/Gigs/EcoHeroGigs";
 
+// App component (App.js)
 const App = () => (
-  <div className="flex flex-col min-h-screen">
+  <div className="flex min-h-screen">
     <Navbar />
-    <div className="flex-1">
+    <div className="flex-1 bg-gray-100">
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<Auth />} />
@@ -51,3 +52,4 @@ const App = () => (
 );
 
 export default App;
+
