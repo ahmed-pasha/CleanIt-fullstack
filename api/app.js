@@ -17,7 +17,7 @@ const app = express();
 
 
 const corsOptions = {
-  origin: 'https://eco-cleanit.vercel.app', // The allowed origin(s)
+  origin: '*', // The allowed origin(s)
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
   credentials: true, // Allows cookies to be sent with requests
