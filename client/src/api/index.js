@@ -8,7 +8,7 @@ const API = axios.create({
 
 export default API;
 
-export const apiurl = 'http://localhost:5000'
+export const apiurl = 'https://clean-it-backend.vercel.app'
 
 export const token = JSON.stringify(localStorage.getItem('token'))
 
