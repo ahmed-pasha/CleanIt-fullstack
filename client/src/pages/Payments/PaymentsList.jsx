@@ -74,7 +74,7 @@ const PaymentsList = () => {
               </h2>
               <div className="text-gray-600 space-y-2">
                 <p>
-                  <span className="font-bold">Amount:</span> ${payment.amount}
+                  <span className="font-bold">Amount:</span> ₹{payment.amount}
                 </p>
                 <p>
                   <span className="font-bold">Status:</span> {payment.status}
@@ -103,8 +103,8 @@ const PaymentsList = () => {
                       {gigDetails[payment.gigId].description}
                     </p>
                     <p>
-                      <span className="font-bold">Price Range:</span> $
-                      {gigDetails[payment.gigId].priceRange.min} - $
+                      <span className="font-bold">Price Range:</span> ₹
+                      {gigDetails[payment.gigId].priceRange.min} - ₹
                       {gigDetails[payment.gigId].priceRange.max}
                     </p>
                     <p>

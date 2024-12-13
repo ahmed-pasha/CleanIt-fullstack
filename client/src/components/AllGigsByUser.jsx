@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { fetchGigsbyUser } from '../api/gigs'; // Adjusted API call for all gigs
 import { Link } from 'react-router-dom';
+import { FaTasks } from 'react-icons/fa'; // Importing an icon for gigs
 
 const AllGigsByUser = () => {
   const { user } = useAuth(); // Get user details from context
@@ -29,8 +30,12 @@ const AllGigsByUser = () => {
   }, [user]);
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 text-center hover:bg-gray-100 transition duration-200">
-      <h3 className="text-lg font-medium text-blue-600">Your Gigs</h3>
+    <div className="bg-white shadow-md rounded-lg p-6 text-center hover:bg-gray-100 transition duration-200 transform hover:scale-105">
+      {/* Icon and Heading */}
+      <FaTasks className="text-4xl text-blue-600 mx-auto mb-4" />
+      <h3 className="text-xl font-bold text-blue-600">Your Gigs</h3>
+
+      {/* Loading, Error, or Gig List */}
       {loading ? (
         <p className="text-sm text-gray-600 mt-2">Loading...</p>
       ) : error ? (
@@ -42,13 +47,20 @@ const AllGigsByUser = () => {
               key={gig._id}
               className="p-4 border-b border-gray-200 last:border-none flex flex-col gap-2"
             >
-              <Link to={`/gigs/${gig._id}`} className="text-gray-800 font-semibold">{gig.title}</Link>
+              <Link to={`/gigs/${gig._id}`} className="text-gray-800 font-semibold hover:underline">
+                {gig.title}
+              </Link>
               <p className="text-gray-500 text-sm">Status: {gig.status}</p>
               <p className="text-gray-500 text-sm">Description: {gig.description}</p>
-            {gig.finalEcoHero &&  <p className="text-gray-500 text-sm">Final EcoHero: {gig.finalEcoHero}</p>}
-              {gig.finalBidAmt &&  <p className="text-gray-500 text-sm">Final Bid Amount: ₹{gig.finalBidAmt}</p>}
-              <p className="text-gray-500 text-sm">Price Range: ₹{gig.priceRange.min} - ₹{gig.priceRange.max}</p>
-              {/* <p className="text-gray-500 text-sm">Location: ({gig.location.coordinates[0]}, {gig.location.coordinates[1]})</p> */}
+              {gig.finalEcoHero && (
+                <p className="text-gray-500 text-sm">Final EcoHero: {gig.finalEcoHero}</p>
+              )}
+              {gig.finalBidAmt && (
+                <p className="text-gray-500 text-sm">Final Bid Amount: ₹{gig.finalBidAmt}</p>
+              )}
+              <p className="text-gray-500 text-sm">
+                Price Range: ₹{gig.priceRange.min} - ₹{gig.priceRange.max}
+              </p>
             </li>
           ))}
         </ul>
